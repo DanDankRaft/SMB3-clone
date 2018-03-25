@@ -6,12 +6,18 @@ public class movement : MonoBehaviour {
 
 	public float jumpHeight;
 	public float movementSpeed;
+	[SerializeField] LayerMask groundedMask;
 
-	bool isGrounded;
+	[SerializeField] bool isGrounded;
 	void Update()
 	{
 		if(Input.GetButtonDown("Jump") && isGrounded)
 			StartCoroutine(Jump());
+
+		if(GetComponent<Rigidbody2D>().velocity.x > 0)
+			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+		if(GetComponent<Rigidbody2D>().velocity.x < 0)
+			transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 	}
 
 	IEnumerator Jump()
@@ -34,10 +40,11 @@ public class movement : MonoBehaviour {
 		isGrounded = false; //if any of the raycasts hit the ground, than the player is grounded. Otherwise, this stays false
 		foreach(Ray2D ray in rays)
 		{
-			RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, col.bounds.extents.y+0.05f, 127);
+			RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, col.bounds.extents.y+0.05f, groundedMask);
 			
 			if(hit.collider != null)
 			{
+				//Debug.Log(hit.collider.name);
 				isGrounded = true;
 			}
 		}
