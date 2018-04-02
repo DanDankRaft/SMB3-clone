@@ -18,16 +18,17 @@ public class SpecialCollisionsDetector : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
+		
 		Vector3 firstContactPoint = col.contacts[0].point;
 		Vector3 secondContactPoint = col.contacts[1].point;
 
-		if(firstContactPoint.y == secondContactPoint.y && firstContactPoint.y > transform.position.y && doingHeadCollisions) //Head Collision
+		if(firstContactPoint.y > transform.position.y && doingHeadCollisions) //Head Collision
 		{
 			 col.gameObject.SendMessage(headCollisonName, SendMessageOptions.DontRequireReceiver); //Sends the message to both the player and the collider it hit.
 			 SendMessage(headCollisonName, SendMessageOptions.DontRequireReceiver);
 		}
 
-		if( firstContactPoint.y == secondContactPoint.y && firstContactPoint.y < transform.position.y && doingLegCollisions) //Leg Collision
+		if(firstContactPoint.y < transform.position.y && doingLegCollisions) //Leg Collision
 		{
 			col.gameObject.SendMessage(legCollisionsName, SendMessageOptions.DontRequireReceiver);
 			SendMessage(legCollisionsName, SendMessageOptions.DontRequireReceiver);

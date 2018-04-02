@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
 	public GameObject bigPlayer;
 	public GameObject smallPlayer;
 	public PlayerState currentState;
+	public int coins = 0;
+
 
 	public void giveHealth(int extraHealth)
 	{
@@ -25,7 +27,6 @@ public class Player : MonoBehaviour {
 	void Death()
 	{
 		Debug.Log("Player died!");
-		//EditorApplication.isPlaying = false;
 	}
 
 	void Update()
@@ -64,7 +65,7 @@ public class Player : MonoBehaviour {
 		switch(newState)
 		{
 			case PlayerState.small:
-				Debug.Log("something fishy is going on...");
+
 				newStatePrefab = smallPlayer;
 				break;
 			case PlayerState.big:
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour {
 		}
 
 		renderer.sprite = newStatePrefab.GetComponent<SpriteRenderer>().sprite;
-		col.size = newStatePrefab.GetComponent<BoxCollider2D>().size;
+		//col.size = newStatePrefab.GetComponent<BoxCollider2D>().size;
 		col.offset = newStatePrefab.GetComponent<BoxCollider2D>().offset;
 
 		currentState = newState;

@@ -34,6 +34,6 @@ public class powerupShroom : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		GetComponent<Rigidbody2D>().velocity = currentVelocity * speed;
+		GetComponent<Rigidbody2D>().velocity = new Vector2(currentVelocity.x * speed, GetComponent<Rigidbody2D>().velocity.y);
 	}
 }

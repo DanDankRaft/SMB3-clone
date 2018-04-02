@@ -14,9 +14,9 @@ public class movement : MonoBehaviour {
 		if(Input.GetButtonDown("Jump") && isGrounded)
 			StartCoroutine(Jump());
 
-		if(GetComponent<Rigidbody2D>().velocity.x > 0)
+		if(Input.GetAxis("Horizontal") * movementSpeed > 0)
 			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-		if(GetComponent<Rigidbody2D>().velocity.x < 0)
+		if(Input.GetAxis("Horizontal") * movementSpeed < 0)
 			transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 	}
 
